@@ -1,0 +1,101 @@
+@import "_mixins";
+@import "generic";
+
+// thumbnail list
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+// thumbnail width
+li {
+  display: inline-block;
+  cursor: pointer;
+  overflow: hidden;
+
+  img {
+    width: 150px;
+    height: 100px;
+    opacity: 0.7;
+    @include transition(opacity ease-in 0.15s);
+  }
+
+  &:hover img { opacity: 1; }
+}
+
+// positioning the lightbox + shadow
+.lightbox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: none;
+  max-width: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  @include transform(translate(-50%, -50%));
+  box-shadow: 0 0 0 100vmax rgba(0,0,0, 0.5); // overlay
+  border: 20px solid #fff;
+
+    img {
+      display: none;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+  .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 12px;
+    background-color: #fff;
+    border-radius: 0 0 0 4px;
+    z-index: 10;
+    cursor: pointer;
+
+    svg  path { fill: $c-text; };
+  }
+}
+
+
+.lightbox-nav- {
+  &next,
+  &prev {
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    padding-top: 2px;
+    font-size: 5rem;
+    text-align: center;
+    line-height: 0;
+    background-color: #fff;
+    z-index: 10;
+    cursor: pointer;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      path { fill: $c-text; }
+    }
+  }
+
+  &next {
+    top: 50%;
+    right: 0;
+    @include transform(scaleY(-50%));
+    border-radius: 4px 0 0 4px
+  }
+
+  &prev {
+    left: 0;
+    @include transform(scaleY(-50%));
+    border-radius: 0 4px 4px 0;
+  }
+}

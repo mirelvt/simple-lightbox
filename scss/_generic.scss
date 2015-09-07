@@ -1,0 +1,59 @@
+@import "variables";
+@import "mixins";
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+* { @include box-sizing(border-box); }
+body { padding: 0; }
+
+// *1: Specifies a size adjustment for displaying text content on smartphones.
+// *2: Improve text-rendering in Webkit browsers and firefox on OSX.
+:root {
+  @include text-size-adjust; // *2
+  -webkit-font-smoothing: antialiased; // *2
+  -moz-osx-font-smoothing: grayscale; // *2
+  font-family: $font-main;
+  color: $c-text;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-size: 1.6rem;
+  height: 100%;
+}
+
+%generic-h {
+  margin-top: 0;
+  font-family: $font-headers;
+  font-weight: normal;
+  color: $c-main;
+  line-height: 100%;
+}
+
+// Generate headings
+@for $i from 1 through 6 {
+  h#{$i} {
+    @extend %generic-h;
+  }
+}
+
+h1,
+h2 { margin-bottom: 1.5rem; }
+
+h3,
+h4,
+h5,
+h6 { margin-bottom: 0; }
+
+.visualwrapper {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 2rem 8rem;
+    background-color: #fff;
+}
