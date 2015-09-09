@@ -1,0 +1,3 @@
+syntax: glob
+.sass-cache
+*.css.map

@@ -1,0 +1,17 @@
+@import "variables";
+@import "mixins";
+@import "generic";
+
+@mixin calc($property, $expression) {
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}: calc(#{$expression});
+}
+
+
+section {
+    @include calc(padding-left, "50% - 608px");
+    @include calc(padding-right, "50% - 608px");
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: #fff;
+}

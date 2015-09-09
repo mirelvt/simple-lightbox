@@ -1,6 +1,18 @@
 @import "variables";
 @import "mixins";
 
+@mixin box-sizing($value) {
+    -moz-box-sizing: $value;
+    -webkit-box-sizing: $value;
+    box-sizing: $value;
+}
+
+@mixin text-size-adjust {
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
 html {
   min-height: 100%;
   position: relative;
@@ -48,12 +60,3 @@ h3,
 h4,
 h5,
 h6 { margin-bottom: 0; }
-
-.visualwrapper {
-    width: 100%;
-    max-width: 1200px;
-    min-height: 100%;
-    margin: 0 auto;
-    padding: 2rem 8rem;
-    background-color: #fff;
-}

@@ -1,5 +1,6 @@
-@import "_mixins";
-@import "generic";
+@import "mixins";
+
+$c-text: #3c4946;
 
 // thumbnail list
 ul {
@@ -30,8 +31,8 @@ li {
   top: 50%;
   left: 50%;
   display: none;
-  max-width: 0;
-  max-height: 0;
+  width: 0;
+  height: 0;
   opacity: 0;
   overflow: hidden;
   @include transform(translate(-50%, -50%));
@@ -39,6 +40,9 @@ li {
   border: 20px solid #fff;
 
     img {
+      position: absolute;
+      top: 0;
+      left: 0;
       display: none;
       width: 100%;
       height: 100%;
@@ -48,8 +52,8 @@ li {
 
   .btn-close {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -1px;
+    right: -1px;
     width: 40px;
     height: 40px;
     padding-top: 10px;
@@ -62,7 +66,6 @@ li {
     svg  path { fill: $c-text; };
   }
 }
-
 
 .lightbox-nav- {
   &next,
@@ -78,6 +81,7 @@ li {
     background-color: #fff;
     z-index: 10;
     cursor: pointer;
+    @include transform(scaleY(-50%));
 
     svg {
       width: 20px;
@@ -87,15 +91,12 @@ li {
   }
 
   &next {
-    top: 50%;
-    right: 0;
-    @include transform(scaleY(-50%));
+    right: -1px;
     border-radius: 4px 0 0 4px
   }
 
   &prev {
-    left: 0;
-    @include transform(scaleY(-50%));
+    left: -1px;
     border-radius: 0 4px 4px 0;
   }
 }
