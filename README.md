@@ -8,7 +8,7 @@ images or icons.
 
 - mvt-lightbox.min.js
 - tweenmax.min.js
-- lightbox.css
+- mvt-lightbox.css
 
 ## Usage
 
@@ -20,7 +20,7 @@ Add tweenmax.min.js and mvt-lightbox.min.js in the bottom of the body:
 
 Add mvt-lightbox.min.css file to your html page:
 ```html
-<link rel="stylesheet" type="text/css" href="lightbox.min.css">
+<link rel="stylesheet" type="text/css" href="mvt-lightbox.min.css">
 ```
 
 The html structure of the lightbox is as follows:
