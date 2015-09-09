@@ -1,16 +1,16 @@
 /*
- * MVT-Lightbox
+ * MVT-Lightbox v1.0
  * https://github.com/mirelvt/mvt-lightbox
  *
  * Released under the MIT license
  *
- * Date: 2015-09-08
+ * Date: 2015-09-09
  */
-(function() {
-    'use strict';
-    /* global TweenMax:false */
 
-    var mvtLightBox = function lightBox(container) {
+var mvt_lightbox = (function(container) {
+    'use strict';
+
+    function lightBox(container) {
         var thumbs = container.querySelectorAll('li'),
         lightbox = container.querySelector('.lightbox'),
         img_list = lightbox.querySelector('.img-list'),
@@ -48,14 +48,16 @@
             animateLightBox(photo, target);
         }
 
-        // Start the animation and set the width + height of the lightbox based on the image width/height
+        // Start the animation and set the width + height of the lightbox based on the
+        // image width/height
         function animateLightBox(photo, target) {
+            var p_height;
             TweenMax.to(lightbox, 0.5, {
                 css:{
                     display: "block",
                     opacity: 1,
-                    "height": photo.naturalHeight + "px",
-                    "width": photo.naturalWidth + "px"
+                    "height": "auto",
+                    "width": "auto",
                 },
                 ease: Power2.easeOut
             });
@@ -73,6 +75,7 @@
                     css:{
                         display: "none",
                         opacity: 0,
+                        position: "absolute",
                     },
                     ease: Power2.easeOut
                 });
@@ -83,12 +86,14 @@
                     css:{
                         display: "none",
                         opacity: 0,
+                        position: "absolute",
                     }
                 },
                 {
                     css:{
                         display: "block",
                         opacity: 1,
+                        position: "static" // get access to image dimensions
                     },
                     ease: Power2.easeOut
                 }
@@ -98,7 +103,8 @@
             toggleLightBoxNav(img);
         }
 
-        // Hide "prev" when the first photo is shown and hide "next" when the last photo is shown.
+        // Hide "prev" when the first photo is shown and hide "next" when the last
+        // photo is shown.
         function toggleLightBoxNav(img) {
             if (img == img_list.lastElementChild) {
                 nav_next.style.display = "None";
@@ -150,9 +156,5 @@
         }
     }
 
-    function onReady() {
-        mvtLightBox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
-    }
-
-    document.addEventListener('DOMContentLoaded', onReady, false);
+    return lightBox;
 })();

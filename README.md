@@ -75,7 +75,7 @@ The html structure of the lightbox is as follows:
 
 To initialize the lightbox, add the following line to your javascript file in DOMContentLoaded:
 ```js
-mvtLightBox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
+mvt_lightbox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
 ```
 
 
