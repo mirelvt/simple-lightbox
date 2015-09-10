@@ -11,7 +11,8 @@ var mvt_lightbox = (function(container) {
     'use strict';
 
     function lightBox(container) {
-        var thumbs = container.querySelectorAll('li'),
+        var current_photo, target, img,
+        thumbs = container.querySelectorAll('li'),
         lightbox = container.querySelector('.lightbox'),
         img_list = lightbox.querySelector('.img-list'),
         images = img_list.querySelectorAll('img'),
@@ -42,7 +43,7 @@ var mvt_lightbox = (function(container) {
         *** */
         function showLightBox(evt) {
             // Update data-show-id attribute
-            var target = evt.currentTarget.getAttribute('data-target');
+            target = evt.currentTarget.getAttribute('data-target');
             var photo = img_list.querySelector('[data-id="' +  target + '"]');
             lightbox.setAttribute('data-show-id', target);
             animateLightBox(photo, target);
@@ -51,13 +52,12 @@ var mvt_lightbox = (function(container) {
         // Start the animation and set the width + height of the lightbox based on the
         // image width/height
         function animateLightBox(photo, target) {
-            var p_height;
             TweenMax.to(lightbox, 0.5, {
                 css:{
                     display: "block",
                     opacity: 1,
-                    "height": "auto",
-                    "width": "auto",
+                    "height": setImgHeight(photo),
+                    "width": setImgWidth(photo),
                 },
                 ease: Power2.easeOut
             });
@@ -65,13 +65,36 @@ var mvt_lightbox = (function(container) {
             togglePhoto(target);
         }
 
+        function setImgWidth(photo) {
+            var p_width;
+            if (window.innerWidth > photo.naturalWidth && window.innerHeight > photo.naturalHeight ) {
+                p_width = photo.naturalWidth;
+            }  else { p_width = "auto"; }
+
+            return p_width;
+        }
+
+        function setImgHeight(photo) {
+            var p_height;
+            if (window.innerHeight > photo.naturalHeight && window.innerWidth > photo.naturalWidth ) {
+                p_height = photo.naturalHeight;
+            }  else { p_height = "auto"; }
+
+            return p_height;
+        }
+
         // Show the target photo in the lightbox container
         function togglePhoto(target) {
-            var img = img_list.querySelector('[data-id="' + target + '"]');
+            if (current_photo == null ) {
+                current_photo = target;
+                img = img_list.querySelector('[data-id="' + current_photo + '"]');
 
-            // First animate all images to hidden state
-            for (var i = 0; i < images.length; i++) {
-                TweenMax.to(images[i], 0.5, {
+                TweenMax.to(img, 0.5, {
+                    display: "block",
+                    opacity: 1,
+                });
+            } else {
+                TweenMax.to(img, 0.5, {
                     css:{
                         display: "none",
                         opacity: 0,
@@ -79,36 +102,27 @@ var mvt_lightbox = (function(container) {
                     },
                     ease: Power2.easeOut
                 });
+                current_photo = target;
+                img = img_list.querySelector('[data-id="' + current_photo + '"]');
+
+                TweenMax.to(img, 0.5, {
+                    display: "block",
+                    opacity: 1,
+                    position: "static",
+                });
             }
-            // Then show the selected image
-            TweenMax.fromTo(img, 0.5,
-                {
-                    css:{
-                        display: "none",
-                        opacity: 0,
-                        position: "absolute",
-                    }
-                },
-                {
-                    css:{
-                        display: "block",
-                        opacity: 1,
-                        position: "static" // get access to image dimensions
-                    },
-                    ease: Power2.easeOut
-                }
-            );
 
             // Show the lightbox nav arrows
-            toggleLightBoxNav(img);
+            toggleLightBoxNav(current_photo);
         }
 
         // Hide "prev" when the first photo is shown and hide "next" when the last
         // photo is shown.
-        function toggleLightBoxNav(img) {
-            if (img == img_list.lastElementChild) {
+        function toggleLightBoxNav(current) {
+            var current_img = lightbox.querySelector('[data-id="' + current + '"]');
+            if (current_img == img_list.lastElementChild) {
                 nav_next.style.display = "None";
-            } else if (img == img_list.firstElementChild) {
+            } else if (current_img == img_list.firstElementChild) {
                 nav_prev.style.display = "None";
             }
             else {
@@ -142,7 +156,7 @@ var mvt_lightbox = (function(container) {
         // Handle the prev and next click event
         function navLightBox(evt) {
             var next_id, photo, next_elm;
-            var current = lightbox.querySelector('[data-id="' + lightbox.getAttribute('data-show-id') + '"]'),
+            var current = lightbox.querySelector('[data-id="' + current_photo + '"]'),
             next = current.nextElementSibling,
             prev = current.previousElementSibling;
 
