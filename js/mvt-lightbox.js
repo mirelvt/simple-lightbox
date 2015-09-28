@@ -1,5 +1,5 @@
 /*
- * MVT-Lightbox v1.0
+ * MVT-Lightbox v1.1
  * https://github.com/mirelvt/mvt-lightbox
  *
  * Released under the MIT license
@@ -53,32 +53,51 @@ var mvt_lightbox = (function(container) {
         // image width/height
         function animateLightBox(photo, target) {
             TweenMax.to(lightbox, 0.5, {
-                css:{
-                    display: "block",
-                    opacity: 1,
-                    "height": setImgHeight(photo),
-                    "width": setImgWidth(photo),
-                },
+                display: "block",
+                opacity: 1,
+                width: setImgWidth(photo),
+                height: setImgHeight(photo),
                 ease: Power2.easeOut
             });
 
             togglePhoto(target);
         }
 
+
         function setImgWidth(photo) {
             var p_width;
-            if (window.innerWidth > photo.naturalWidth && window.innerHeight > photo.naturalHeight ) {
+
+            if (window.innerWidth < photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
+                p_width = "auto";
+            }
+            else if (window.innerWidth > photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
+                p_width = "auto";
+            }
+            else if (window.innerWidth > photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth > photo.naturalHeight) {
+                p_width = "auto";
+            }
+            else if (window.innerWidth > photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
+                p_width = "auto";
+            }
+            else if (window.innerWidth > photo.naturalWidth && window.innerHeight > photo.naturalHeight && photo.naturalWidth > photo.naturalHeight) {
                 p_width = photo.naturalWidth;
-            }  else { p_width = "auto"; }
+            }
 
             return p_width;
         }
 
         function setImgHeight(photo) {
             var p_height;
-            if (window.innerHeight > photo.naturalHeight && window.innerWidth > photo.naturalWidth ) {
-                p_height = photo.naturalHeight;
-            }  else { p_height = "auto"; }
+
+            if (window.innerWidth < photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
+                p_height = "auto";
+            }
+            else if (window.innerWidth > photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
+                p_height = window.innerHeight;
+            }
+            else {
+                p_height =  "auto";
+            }
 
             return p_height;
         }

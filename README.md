@@ -1,4 +1,4 @@
-# MVT-Lightbox 1.0
+# MVT-Lightbox 1.1
 
 This simple lightbox uses Javascript, CSS and [GSAP](http://greensock.com/gsap).
 For the arrows + close button I use inline svg. You can replace them with your own
@@ -77,6 +77,11 @@ To initialize the lightbox, add the following line to your javascript file in DO
 ```js
 mvt_lightbox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
 ```
+
+## Releases
+2015-28-09 v1.1: Fixes the responsive width + height
+
+2015-09-09 v1.0: First release
 
 
 
