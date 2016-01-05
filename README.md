@@ -1,20 +1,20 @@
-# MVT-Lightbox 1.1
+# MVT-Lightbox 1.2
 
-This simple lightbox uses Javascript, CSS and [GSAP](http://greensock.com/gsap).
+This simple lightbox uses Javascript, CSS and [Velocity.js](http://julian.com/research/velocity/).
 For the arrows + close button I use inline svg. You can replace them with your own
 images or icons.
 
 ## Dependencies
 
 - mvt-lightbox.min.js
-- tweenmax.min.js
+- velocity-1.2.3.min.js
 - mvt-lightbox.css
 
 ## Usage
 
-Add tweenmax.min.js and mvt-lightbox.min.js in the bottom of the body:
+Add velocity-1.2.3.min.js and mvt-lightbox.min.js in the bottom of the body of your html page:
 ```html
-<script src="js/tweenmax.min.js" type="text/javascript"></script>
+<script src="js/velocity-1.2.3.min.js" type="text/javascript"></script>
 <script src="js/mvt-lightbox.min.js" type="text/javascript"></script>
 ```
 
@@ -79,8 +79,9 @@ mvt_lightbox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
 ```
 
 ## Releases
-2015-28-09 v1.1: Fixes the responsive width + height
+2016-01-05 v1.2: Replace GSAP with Velocity.js. Clean up code.
 
+2015-09-28 v1.1: Fixes the responsive width + height
 2015-09-09 v1.0: First release
 
 

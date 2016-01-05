@@ -1,10 +1,10 @@
 /*
- * MVT-Lightbox v1.1
+ * MVT-Lightbox v1.2
  * https://github.com/mirelvt/mvt-lightbox
  *
  * Released under the MIT license
  *
- * Date: 2015-09-09
+ * Date: 2016-01-05
  */
 
 var mvt_lightbox = (function(container) {
@@ -49,86 +49,32 @@ var mvt_lightbox = (function(container) {
             animateLightBox(photo, target);
         }
 
-        // Start the animation and set the width + height of the lightbox based on the
-        // image width/height
+        // Show the lightbox container
         function animateLightBox(photo, target) {
-            TweenMax.to(lightbox, 0.5, {
-                display: "block",
-                opacity: 1,
-                width: setImgWidth(photo),
-                height: setImgHeight(photo),
-                ease: Power2.easeOut
-            });
-
+            Velocity(lightbox, 'fadeIn', 500);
             togglePhoto(target);
-        }
-
-
-        function setImgWidth(photo) {
-            var p_width;
-
-            if (window.innerWidth < photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
-                p_width = "auto";
-            }
-            else if (window.innerWidth > photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
-                p_width = "auto";
-            }
-            else if (window.innerWidth > photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth > photo.naturalHeight) {
-                p_width = "auto";
-            }
-            else if (window.innerWidth > photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
-                p_width = "auto";
-            }
-            else if (window.innerWidth > photo.naturalWidth && window.innerHeight > photo.naturalHeight && photo.naturalWidth > photo.naturalHeight) {
-                p_width = photo.naturalWidth;
-            }
-
-            return p_width;
-        }
-
-        function setImgHeight(photo) {
-            var p_height;
-
-            if (window.innerWidth < photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
-                p_height = "auto";
-            }
-            else if (window.innerWidth > photo.naturalWidth && window.innerHeight < photo.naturalHeight && photo.naturalWidth < photo.naturalHeight) {
-                p_height = window.innerHeight;
-            }
-            else {
-                p_height =  "auto";
-            }
-
-            return p_height;
         }
 
         // Show the target photo in the lightbox container
         function togglePhoto(target) {
-            if (current_photo == null ) {
+            if (!current_photo) {
                 current_photo = target;
                 img = img_list.querySelector('[data-id="' + current_photo + '"]');
 
-                TweenMax.to(img, 0.5, {
-                    display: "block",
-                    opacity: 1,
-                });
-            } else {
-                TweenMax.to(img, 0.5, {
-                    css:{
-                        display: "none",
-                        opacity: 0,
-                        position: "absolute",
-                    },
-                    ease: Power2.easeOut
-                });
+                Velocity(img, 'fadeIn', 500);
+            }
+            else {
+                // Set position attribute for the image, this does not work as property in velocityjs.
+                img.style.position = 'absolute';
+                // animate
+                Velocity(img, 'fadeOut', 500);
+
+                // Set current_photo and show the image
                 current_photo = target;
                 img = img_list.querySelector('[data-id="' + current_photo + '"]');
+                img.style.position = 'static';
 
-                TweenMax.to(img, 0.5, {
-                    display: "block",
-                    opacity: 1,
-                    position: "static",
-                });
+                Velocity(img, 'fadeIn', 500);
             }
 
             // Show the lightbox nav arrows
@@ -152,16 +98,7 @@ var mvt_lightbox = (function(container) {
 
         // Remove all inline styles from the lightbox to hide it
         function closeLightBox() {
-            TweenMax.to(lightbox, 0.5, {
-                css:{
-                    display: "none",
-                    opacity: 0,
-                    "height": 0,
-                    "width": 0
-                },
-                ease: Power2.easeOut,
-                onComplete: resetStyles
-            })
+            Velocity(lightbox, 'fadeOut', { complete: resetStyles }, 500);
         }
 
         // After the closing animation is done, remove the style attributes
