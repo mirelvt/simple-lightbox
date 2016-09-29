@@ -12,16 +12,17 @@ var mvt_lightbox = (function(container) {
 
     function lightBox(container) {
         var current_photo, target, img,
-        thumbs = container.querySelectorAll('li'),
-        lightbox = container.querySelector('.lightbox'),
-        img_list = lightbox.querySelector('.img-list'),
-        images = img_list.querySelectorAll('img'),
-        nav_next = lightbox.querySelector('.lightbox-nav-next'),
-        nav_prev = lightbox.querySelector('.lightbox-nav-prev');
+            overlay = container.querySelector('.overlay'),
+            thumbs = container.querySelectorAll('li'),
+            lightbox = container.querySelector('.lightbox'),
+            img_list = lightbox.querySelector('.img-list'),
+            images = img_list.querySelectorAll('img'),
+            nav_next = lightbox.querySelector('.lightbox-nav-next'),
+            nav_prev = lightbox.querySelector('.lightbox-nav-prev');
 
         /* ***
          * Add click events to the thumbnails, close + prev/next elements
-        *** */
+         *** */
         lightbox.querySelector('.btn-close').addEventListener('click', closeLightBox, false);
         nav_next.addEventListener('click', navLightBox, false);
         nav_prev.addEventListener('click', navLightBox, false);
@@ -30,21 +31,22 @@ var mvt_lightbox = (function(container) {
             thumbs[i].addEventListener('click', showLightBox, false);
             // Set data-target attribute
             thumbs[i].setAttribute('data-target', 'image-' + [i + 1]);
-        };
+        }
 
         // Set data-id attribute on each gallery image
         for (var i = 0; i < images.length; i++) {
             images[i].setAttribute('data-id', 'image-' + [i + 1]);
-        };
+        }
 
         /* ***
          * The lightbox and photo is shown based on the value of data-show-id and data-id,
          * if they match: show the lightbox + photo.
-        *** */
+         *** */
         function showLightBox(evt) {
+            overlay.classList.remove('no-display');
             // Update data-show-id attribute
             target = evt.currentTarget.getAttribute('data-target');
-            var photo = img_list.querySelector('[data-id="' +  target + '"]');
+            var photo = img_list.querySelector('[data-id="' + target + '"]');
             lightbox.setAttribute('data-show-id', target);
             animateLightBox(photo, target);
         }
@@ -62,8 +64,7 @@ var mvt_lightbox = (function(container) {
                 img = img_list.querySelector('[data-id="' + current_photo + '"]');
 
                 Velocity(img, 'fadeIn', 500);
-            }
-            else {
+            } else {
                 // Set position attribute for the image, this does not work as property in velocityjs.
                 img.style.position = 'absolute';
                 // animate
@@ -89,8 +90,7 @@ var mvt_lightbox = (function(container) {
                 nav_next.style.display = "None";
             } else if (current_img == img_list.firstElementChild) {
                 nav_prev.style.display = "None";
-            }
-            else {
+            } else {
                 nav_prev.removeAttribute('style');
                 nav_next.removeAttribute('style');
             }
@@ -98,7 +98,10 @@ var mvt_lightbox = (function(container) {
 
         // Remove all inline styles from the lightbox to hide it
         function closeLightBox() {
-            Velocity(lightbox, 'fadeOut', { complete: resetStyles }, 500);
+            overlay.classList.add('no-display');
+            Velocity(lightbox, 'fadeOut', {
+                complete: resetStyles
+            }, 500);
         }
 
         // After the closing animation is done, remove the style attributes
@@ -113,15 +116,15 @@ var mvt_lightbox = (function(container) {
         function navLightBox(evt) {
             var next_id, photo, next_elm;
             var current = lightbox.querySelector('[data-id="' + current_photo + '"]'),
-            next = current.nextElementSibling,
-            prev = current.previousElementSibling;
+                next = current.nextElementSibling,
+                prev = current.previousElementSibling;
 
             next_elm = evt.currentTarget.classList.contains('lightbox-nav-next') ?
-                        next.getAttribute('data-id') : prev.getAttribute('data-id');
+                next.getAttribute('data-id') : prev.getAttribute('data-id');
 
             lightbox.setAttribute('data-show-id', next_elm);
             next_id = lightbox.getAttribute('data-show-id');
-            photo = lightbox.querySelector('[data-id="' +  next_id + '"]');
+            photo = lightbox.querySelector('[data-id="' + next_id + '"]');
             animateLightBox(photo, next_id);
         }
     }

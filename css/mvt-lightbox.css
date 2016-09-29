@@ -8,13 +8,23 @@ li {
   cursor: pointer;
   overflow: hidden; }
   li img {
+    -webkit-transition: opacity ease-in 0.15s;
+    transition: opacity ease-in 0.15s;
     width: 150px;
     height: 100px;
-    opacity: 0.7;
-    -webkit-transition: opacity ease-in 0.15s;
-    transition: opacity ease-in 0.15s; }
+    opacity: 0.7; }
   li:hover img {
     opacity: 1; }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5); }
+  .overlay.no-display {
+    display: none; }
 
 .lightbox {
   position: absolute;
@@ -30,9 +40,8 @@ li {
   -moz-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
   background-color: #fff; }
-  .lightbox:before {
+  .lightbox::before {
     display: block;
     position: absolute;
     top: 0;

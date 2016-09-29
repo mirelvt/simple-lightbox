@@ -4,108 +4,119 @@ $c-text: #3c4946;
 
 // thumbnail list
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 // thumbnail width
 li {
-  display: inline-block;
-  cursor: pointer;
-  overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    overflow: hidden;
 
-  img {
-    width: 150px;
-    height: 100px;
-    opacity: 0.7;
-    @include transition(opacity ease-in 0.15s);
-  }
+    img {
+        @include transition(opacity ease-in 0.15s);
+        width: 150px;
+        height: 100px;
+        opacity: 0.7;
+    }
 
-  &:hover img { opacity: 1; }
+    &:hover img { opacity: 1; }
 }
 
-// positioning the lightbox + shadow
-$w-border: 20px;
-.lightbox {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: none;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  opacity: 0;
-  overflow: hidden;
-  @include transform(translate(-50%, -50%));
-  box-shadow: 0 0 0 100vmax rgba(0,0,0, 0.5); // overlay
-  background-color: #fff;
-
-  &:before {
-    display: block;
-    position: absolute;
+.overlay {
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    content: "";
-    border: $w-border solid #fff;
-    z-index: 2;
-  }
+    background-color: rgba(0, 0, 0, 0.5);
 
-  img {
-    display: none;
-    max-width: 100vw;
-    max-height: 100vh;
-  }
+    &.no-display { display: none; }
+}
 
-  .btn-close {
+// positioning the lightbox
+$w-border: 20px;
+
+.lightbox {
     position: absolute;
-    top: $w-border - 1;
-    right: $w-border - 1;
-    width: 40px;
-    height: 40px;
-    padding-top: 10px;
-    padding-left: 12px;
+    top: 50%;
+    left: 50%;
+    display: none;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    opacity: 0;
+    overflow: hidden;
+    @include transform(translate(-50%, -50%));
     background-color: #fff;
-    border-radius: 0 0 0 4px;
-    z-index: 10;
-    cursor: pointer;
 
-    svg  path { fill: $c-text; };
-  }
+    &::before {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        content: "";
+        border: $w-border solid #fff;
+        z-index: 2;
+    }
+
+    img {
+        display: none;
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+
+    .btn-close {
+        position: absolute;
+        top: $w-border - 1;
+        right: $w-border - 1;
+        width: 40px;
+        height: 40px;
+        padding-top: 10px;
+        padding-left: 12px;
+        background-color: #fff;
+        border-radius: 0 0 0 4px;
+        z-index: 10;
+        cursor: pointer;
+
+        svg  path { fill: $c-text; };
+    }
 }
 
 .lightbox-nav- {
-  &next,
-  &prev {
-    position: absolute;
-    top: 50%;
-    width: 40px;
-    height: 40px;
-    padding-top: 2px;
-    font-size: 5rem;
-    text-align: center;
-    line-height: 0;
-    background-color: #fff;
-    z-index: 10;
-    cursor: pointer;
-    @include transform(scaleY(-50%));
+    &next,
+    &prev {
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        padding-top: 2px;
+        font-size: 5rem;
+        text-align: center;
+        line-height: 0;
+        background-color: #fff;
+        z-index: 10;
+        cursor: pointer;
+        @include transform(scaleY(-50%));
 
-    svg {
-      width: 20px;
-      height: 20px;
-      path { fill: $c-text; }
+        svg {
+            width: 20px;
+            height: 20px;
+            path { fill: $c-text; }
+        }
     }
-  }
 
-  &next {
-    right: $w-border - 1;
-    border-radius: 4px 0 0 4px
-  }
+    &next {
+        right: $w-border - 1;
+        border-radius: 4px 0 0 4px;
+    }
 
-  &prev {
-    left: $w-border - 1;
-    border-radius: 0 4px 4px 0;
-  }
+    &prev {
+        left: $w-border - 1;
+        border-radius: 0 4px 4px 0;
+    }
 }

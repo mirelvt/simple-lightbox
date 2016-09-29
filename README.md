@@ -12,7 +12,7 @@ images or icons.
 
 ## Usage
 
-Add velocity-1.2.3.min.js and mvt-lightbox.min.js in the bottom of the body of your html page:
+Add velocity-1.2.3.min.js and mvt-lightbox.min.js at the bottom of the body of your html page:
 ```html
 <script src="js/velocity-1.2.3.min.js" type="text/javascript"></script>
 <script src="js/mvt-lightbox.min.js" type="text/javascript"></script>
@@ -84,8 +84,3 @@ mvt_lightbox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
 2015-09-28 v1.1: Fixes the responsive width + height
 
 2015-09-09 v1.0: First release
-
-
-
-
-
