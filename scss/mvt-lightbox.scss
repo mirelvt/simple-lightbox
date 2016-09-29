@@ -3,29 +3,30 @@
 $c-text: #3c4946;
 
 // thumbnail list
-ul {
+.mvt-thumbs-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
-}
 
-// thumbnail width
-li {
-    display: inline-block;
-    cursor: pointer;
-    overflow: hidden;
+    // thumbnail width
+    li {
+        display: inline-block;
+        cursor: pointer;
+        overflow: hidden;
 
-    img {
-        @include transition(opacity ease-in 0.15s);
-        width: 150px;
-        height: 100px;
-        opacity: 0.7;
+        img {
+            @include transition(opacity ease-in 0.15s);
+            width: 150px;
+            height: 100px;
+            opacity: 0.7;
+        }
+
+        &:hover img { opacity: 1; }
     }
 
-    &:hover img { opacity: 1; }
 }
 
-.overlay {
+.mvt-lightbox-overlay {
     position: fixed;
     top: 0;
     right: 0;
@@ -39,7 +40,7 @@ li {
 // positioning the lightbox
 $w-border: 20px;
 
-.lightbox {
+.mvt-lightbox {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -70,21 +71,21 @@ $w-border: 20px;
         max-height: 100vh;
     }
 
-    .btn-close {
-        position: absolute;
-        top: $w-border - 1;
-        right: $w-border - 1;
-        width: 40px;
-        height: 40px;
-        padding-top: 10px;
-        padding-left: 12px;
-        background-color: #fff;
-        border-radius: 0 0 0 4px;
-        z-index: 10;
-        cursor: pointer;
+}
+.mvt-btn-close {
+    position: absolute;
+    top: $w-border - 1;
+    right: $w-border - 1;
+    width: 40px;
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 12px;
+    background-color: #fff;
+    border-radius: 0 0 0 4px;
+    z-index: 10;
+    cursor: pointer;
 
-        svg  path { fill: $c-text; };
-    }
+    svg  path { fill: $c-text; };
 }
 
 .lightbox-nav- {

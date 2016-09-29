@@ -12,10 +12,10 @@ var mvt_lightbox = (function(container) {
 
     function lightBox(container) {
         var current_photo, target, img,
-            overlay = container.querySelector('.overlay'),
+            overlay = container.querySelector('.mvt-lightbox-overlay'),
             thumbs = container.querySelectorAll('li'),
-            lightbox = container.querySelector('.lightbox'),
-            img_list = lightbox.querySelector('.img-list'),
+            lightbox = container.querySelector('.mvt-lightbox'),
+            img_list = lightbox.querySelector('.mvt-img-list'),
             images = img_list.querySelectorAll('img'),
             nav_next = lightbox.querySelector('.lightbox-nav-next'),
             nav_prev = lightbox.querySelector('.lightbox-nav-prev');
@@ -23,7 +23,7 @@ var mvt_lightbox = (function(container) {
         /* ***
          * Add click events to the thumbnails, close + prev/next elements
          *** */
-        lightbox.querySelector('.btn-close').addEventListener('click', closeLightBox, false);
+        lightbox.querySelector('.mvt-btn-close').addEventListener('click', closeLightBox, false);
         nav_next.addEventListener('click', navLightBox, false);
         nav_prev.addEventListener('click', navLightBox, false);
 
