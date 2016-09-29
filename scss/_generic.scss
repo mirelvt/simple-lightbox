@@ -1,61 +1,36 @@
 @import "variables";
 @import "mixins";
 
-@mixin box-sizing($value) {
-    -moz-box-sizing: $value;
-    -webkit-box-sizing: $value;
-    box-sizing: $value;
-}
-
-@mixin text-size-adjust {
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-}
-
-html {
-  min-height: 100%;
-  position: relative;
-}
-
-* { @include box-sizing(border-box); }
-body { padding: 0; }
+* { box-sizing: border-box; }
 
 // *1: Specifies a size adjustment for displaying text content on smartphones.
 // *2: Improve text-rendering in Webkit browsers and firefox on OSX.
 :root {
-  @include text-size-adjust; // *2
-  -webkit-font-smoothing: antialiased; // *2
-  -moz-osx-font-smoothing: grayscale; // *2
-  font-family: $font-main;
-  color: $c-text;
-  height: 100%;
+    position: relative;
+    height: 100%;
+    min-height: 100%;
+    font-family: $font-main;
+    font-size: 62.5%;
+    color: $c-text;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased; // *2
+    -moz-osx-font-smoothing: grayscale; // *2
 }
 
 body {
-  margin: 0;
-  font-size: 1.6rem;
-  height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 1.6rem;
+    height: 100%;
+
 }
 
-%generic-h {
-  margin-top: 0;
-  font-weight: normal;
-  color: $c-main;
-  line-height: 100%;
+h1 {
+    margin-top: 0;
+    font-weight: normal;
+    color: $c-main;
+    line-height: 100%;
+    font-size: 3.6rem;
 }
-
-// Generate headings
-@for $i from 1 through 6 {
-  h#{$i} {
-    @extend %generic-h;
-  }
-}
-
-h1,
-h2 { margin-bottom: 1.5rem; }
-
-h3,
-h4,
-h5,
-h6 { margin-bottom: 0; }

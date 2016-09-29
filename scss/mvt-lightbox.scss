@@ -1,5 +1,6 @@
 @import "mixins";
 
+$w-border: 20px;
 $c-text: #3c4946;
 
 // thumbnail list
@@ -38,8 +39,6 @@ $c-text: #3c4946;
 }
 
 // positioning the lightbox
-$w-border: 20px;
-
 .mvt-lightbox {
     position: absolute;
     top: 50%;
