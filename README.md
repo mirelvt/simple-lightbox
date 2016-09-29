@@ -1,4 +1,4 @@
-# MVT-Lightbox 1.2
+# MVT-Lightbox 1.2.1
 
 This simple lightbox uses Javascript, CSS and [Velocity.js](http://julian.com/research/velocity/).
 For the arrows + close button I use inline svg. You can replace them with your own
