@@ -43,15 +43,16 @@ The html structure of the lightbox is as follows:
             <img src="[path to your thumbnail image]" alt="">
         </li>
     </ul>
-    <div class="lightbox" data-show-id="">
-        <div class="img-list">
+    <div class="mvt-lightbox-overlay no-display"></div>
+    <div class="mvt-lightbox" data-show-id="">
+        <div class="mvt-img-list">
             <img src="[path to your image]" alt="">
             <img src="[path to your image]" alt="">
             <img src="[path to your image]" alt="">
             <img src="[path to your image]" alt="">
             <img src="[path to your image]" alt="">
         </div>
-        <div class="btn-close">
+        <div class="mvt-btn-close">
             <svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg">
                 <title>Close</title>
                 <path d="M27.344,4.287 L23.531,0.474 L14,10.005 L4.469,0.474 L0.656,4.287 L10.187,13.818 L0.656,23.349 L4.469,27.162 L14,17.631 L23.531,27.162 L27.344,23.349 L17.813,13.818 L27.344,4.287 Z"></path>
