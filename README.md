@@ -7,14 +7,14 @@ images or icons.
 ## Dependencies
 
 - mvt-lightbox.min.js
-- velocity-1.2.3.min.js
+- velocity-1.3.1.min.js
 - mvt-lightbox.min.css
 
 ## Usage
 
-Add velocity-1.2.3.min.js and mvt-lightbox.min.js at the bottom of the body of your html page:
+Add velocity-1.3.1.min.js and mvt-lightbox.min.js at the bottom of the body of your html page:
 ```html
-<script src="js/velocity-1.2.3.min.js" type="text/javascript"></script>
+<script src="js/velocity-1.3.1.min.js" type="text/javascript"></script>
 <script src="js/mvt-lightbox.min.js" type="text/javascript"></script>
 ```
 
@@ -79,9 +79,9 @@ mvt_lightbox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
 ```
 
 ## Releases
-2016-09-29 v1.2.1: Update Velocity.js from 1.2.3 to 1.3.1. Clean up code.
+2016-09-29 v1.2.1: Update velocity.js from 1.2.3 to 1.3.1. Clean up code.
 
-2016-01-05 v1.2: Replace GSAP with Velocity.js. Clean up code.
+2016-01-05 v1.2: Replace GSAP with velocity.js. Clean up code.
 
 2015-09-28 v1.1: Fixes the responsive width + height
 
