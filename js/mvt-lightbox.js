@@ -27,16 +27,16 @@ var mvt_lightbox = (function(container) {
         nav_next.addEventListener('click', navLightBox, false);
         nav_prev.addEventListener('click', navLightBox, false);
 
-        for (var i = 0; i < thumbs.length; i++) {
-            thumbs[i].addEventListener('click', showLightBox, false);
+        thumbs.forEach(function(elm, index) {
+            elm.addEventListener('click', showLightBox, false);
             // Set data-target attribute
-            thumbs[i].setAttribute('data-target', 'image-' + [i + 1]);
-        }
+            elm.setAttribute('data-target', 'image-' + [ index + 1]);
+        });
 
         // Set data-id attribute on each gallery image
-        for (var i = 0; i < images.length; i++) {
-            images[i].setAttribute('data-id', 'image-' + [i + 1]);
-        }
+        images.forEach(function(elm, index) {
+            elm.setAttribute('data-id', 'image-' + [index + 1]);
+        });
 
         /* ***
          * The lightbox and photo is shown based on the value of data-show-id and data-id,
@@ -107,9 +107,10 @@ var mvt_lightbox = (function(container) {
         // After the closing animation is done, remove the style attributes
         function resetStyles() {
             lightbox.removeAttribute('style');
-            for (var i = 0; i < images.length; i++) {
-                images[i].removeAttribute('style');
-            }
+
+            images.forEach(function(elm) {
+                elm.removeAttribute('style');
+            });            
         }
 
         // Handle the prev and next click event
