@@ -14,7 +14,7 @@ images or icons.
 
 Add velocity-1.3.1.min.js and mvt-lightbox.min.js at the bottom of the body of your html page:
 ```html
-<script src="js/velocity-1.3.1.min.js" type="text/javascript"></script>
+<script src="ui-libs/velocity-1.3.1.min.js" type="text/javascript"></script>
 <script src="js/mvt-lightbox.min.js" type="text/javascript"></script>
 ```
 
@@ -76,11 +76,14 @@ The html structure of the lightbox is as follows:
 
 To initialize the lightbox, add the following line to your javascript file in DOMContentLoaded:
 ```js
-mvt_lightbox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
+document.addEventListener('DOMContentLoaded', function() {
+    mvt_lightbox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
+}, false);
 ```
 
 ## Releases
-2016-09-29 v1.2.1: Update velocity.js from 1.2.3 to 1.3.1. Clean up code.
+2016-09-29 v1.2.1: Update velocity.js from 1.2.3 to 1.3.1. Clean up code. Move
+velocity.js to ui-libs directory. Update Makefile to generate minified js.
 
 2016-01-05 v1.2: Replace GSAP with velocity.js. Clean up code.
 
