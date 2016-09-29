@@ -26,7 +26,7 @@ Add mvt-lightbox.min.css file to your html page:
 The html structure of the lightbox is as follows:
 ```html
 <section data-lightbox="mvt-lightbox">
-    <ul>
+    <ul class="mvt-thumbs-list">
         <li>
             <img src="[path to your thumbnail image]" alt="">
         </li>
