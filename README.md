@@ -79,6 +79,8 @@ mvt_lightbox(document.querySelector('[data-lightbox="mvt-lightbox"]'));
 ```
 
 ## Releases
+2016-09-29 v1.2.1: Update Velocity.js from 1.2.3 to 1.3.1. Clean up code.
+
 2016-01-05 v1.2: Replace GSAP with Velocity.js. Clean up code.
 
 2015-09-28 v1.1: Fixes the responsive width + height
