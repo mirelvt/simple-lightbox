@@ -35,8 +35,6 @@
   max-width: 100%;
   opacity: 0;
   overflow: hidden;
-  -ms-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   background-color: #fff; }
@@ -71,21 +69,19 @@
     fill: #3c4946; }
 
 .lightbox-nav-next, .lightbox-nav-prev {
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
   position: absolute;
   top: 50%;
   width: 40px;
   height: 40px;
-  padding-top: 2px;
+  padding-top: 9px;
   font-size: 5rem;
   text-align: center;
   line-height: 0;
   background-color: #fff;
   z-index: 10;
-  cursor: pointer;
-  -ms-transform: scaleY(-50%);
-  -moz-transform: scaleY(-50%);
-  -webkit-transform: scaleY(-50%);
-  transform: scaleY(-50%); }
+  cursor: pointer; }
   .lightbox-nav-next svg, .lightbox-nav-prev svg {
     width: 20px;
     height: 20px; }

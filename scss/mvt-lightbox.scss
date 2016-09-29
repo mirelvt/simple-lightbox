@@ -71,6 +71,7 @@ $c-text: #3c4946;
     }
 
 }
+
 .mvt-btn-close {
     position: absolute;
     top: $w-border - 1;
@@ -90,18 +91,18 @@ $c-text: #3c4946;
 .lightbox-nav- {
     &next,
     &prev {
+        @include transform(translateY(-50%));
         position: absolute;
         top: 50%;
         width: 40px;
         height: 40px;
-        padding-top: 2px;
+        padding-top: 9px;
         font-size: 5rem;
         text-align: center;
         line-height: 0;
         background-color: #fff;
         z-index: 10;
         cursor: pointer;
-        @include transform(scaleY(-50%));
 
         svg {
             width: 20px;

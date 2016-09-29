@@ -27,14 +27,14 @@ var mvt_lightbox = (function(container) {
         nav_next.addEventListener('click', navLightBox, false);
         nav_prev.addEventListener('click', navLightBox, false);
 
-        thumbs.forEach(function(elm, index) {
+        Array.prototype.forEach.call(thumbs, function(elm, index) {
             elm.addEventListener('click', showLightBox, false);
             // Set data-target attribute
             elm.setAttribute('data-target', 'image-' + [ index + 1]);
         });
 
         // Set data-id attribute on each gallery image
-        images.forEach(function(elm, index) {
+        Array.prototype.forEach.call(images, function(elm, index) {
             elm.setAttribute('data-id', 'image-' + [index + 1]);
         });
 
@@ -108,9 +108,9 @@ var mvt_lightbox = (function(container) {
         function resetStyles() {
             lightbox.removeAttribute('style');
 
-            images.forEach(function(elm) {
+            Array.prototype.forEach.call(images, function(elm) {
                 elm.removeAttribute('style');
-            });            
+            });
         }
 
         // Handle the prev and next click event

@@ -41,10 +41,8 @@
 }
 
 @mixin transform($arguments...) {
-  -ms-transform: $arguments; //IE9
-  -moz-transform: $arguments; //FF 10
-  -webkit-transform: $arguments;
-  transform: $arguments;
+    -webkit-transform: $arguments;
+    transform: $arguments;
 }
 
 @mixin transform-origin($arguments...) {
