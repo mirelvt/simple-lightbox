@@ -1,4 +1,4 @@
-# MVT-Lightbox 1.2.1
+# MVT-Lightbox 1.2.2
 
 This simple lightbox uses Javascript, CSS and [Velocity.js](http://julian.com/research/velocity/). The lightbox is tested in IE11, Edge, latest Chrome, Safari and Firefox.
 For the arrows + close button I use inline svg. You can replace them with your own images or icons.

@@ -1,10 +1,10 @@
 /*
- * MVT-Lightbox v1.2.1
+ * MVT-Lightbox v1.2.2
  * https://github.com/mirelvt/mvt-lightbox
  *
  * Released under the MIT license
  *
- * Date: 2016-09-29
+ * Date: 2017-05-31
  */
 
 var mvt_lightbox = (function() {
