@@ -7,12 +7,12 @@
  * Date: 2016-09-29
  */
 
-var mvt_lightbox = (function(container) {
+var mvt_lightbox = (function() {
     'use strict';
 
     function lightBox(container) {
-        var current_photo, target, img,
-            overlay = container.querySelector('.mvt-lightbox-overlay'),
+        let current_photo, img;
+        const overlay = container.querySelector('.mvt-lightbox-overlay'),
             thumbs = container.querySelectorAll('li'),
             lightbox = container.querySelector('.mvt-lightbox'),
             img_list = lightbox.querySelector('.mvt-img-list'),
@@ -30,7 +30,7 @@ var mvt_lightbox = (function(container) {
         Array.prototype.forEach.call(thumbs, function(elm, index) {
             elm.addEventListener('click', showLightBox, false);
             // Set data-target attribute
-            elm.setAttribute('data-target', 'image-' + [ index + 1]);
+            elm.setAttribute('data-target', 'image-' + [index + 1]);
         });
 
         // Set data-id attribute on each gallery image
@@ -45,8 +45,8 @@ var mvt_lightbox = (function(container) {
         function showLightBox(evt) {
             overlay.classList.remove('no-display');
             // Update data-show-id attribute
-            target = evt.currentTarget.getAttribute('data-target');
-            var photo = img_list.querySelector('[data-id="' + target + '"]');
+            const target = evt.currentTarget.getAttribute('data-target');
+            const photo = img_list.querySelector('[data-id="' + target + '"]');
             lightbox.setAttribute('data-show-id', target);
             animateLightBox(photo, target);
         }
@@ -59,12 +59,7 @@ var mvt_lightbox = (function(container) {
 
         // Show the target photo in the lightbox container
         function togglePhoto(target) {
-            if (!current_photo) {
-                current_photo = target;
-                img = img_list.querySelector('[data-id="' + current_photo + '"]');
-
-                Velocity(img, 'fadeIn', 500);
-            } else {
+            if (current_photo) {
                 // Set position attribute for the image, this does not work as property in velocityjs.
                 img.style.position = 'absolute';
                 // animate
@@ -76,6 +71,11 @@ var mvt_lightbox = (function(container) {
                 img.style.position = 'static';
 
                 Velocity(img, 'fadeIn', 500);
+            } else {
+                current_photo = target;
+                img = img_list.querySelector('[data-id="' + current_photo + '"]');
+
+                Velocity(img, 'fadeIn', 500);
             }
 
             // Show the lightbox nav arrows
@@ -85,7 +85,7 @@ var mvt_lightbox = (function(container) {
         // Hide "prev" when the first photo is shown and hide "next" when the last
         // photo is shown.
         function toggleLightBoxNav(current) {
-            var current_img = lightbox.querySelector('[data-id="' + current + '"]');
+            const current_img = lightbox.querySelector('[data-id="' + current + '"]');
             if (current_img == img_list.lastElementChild) {
                 nav_next.style.display = "None";
             } else if (current_img == img_list.firstElementChild) {
@@ -99,9 +99,7 @@ var mvt_lightbox = (function(container) {
         // Remove all inline styles from the lightbox to hide it
         function closeLightBox() {
             overlay.classList.add('no-display');
-            Velocity(lightbox, 'fadeOut', {
-                complete: resetStyles
-            }, 500);
+            Velocity(lightbox, 'fadeOut', {complete: resetStyles}, 500);
         }
 
         // After the closing animation is done, remove the style attributes
@@ -115,17 +113,16 @@ var mvt_lightbox = (function(container) {
 
         // Handle the prev and next click event
         function navLightBox(evt) {
-            var next_id, photo, next_elm;
-            var current = lightbox.querySelector('[data-id="' + current_photo + '"]'),
+            const current = lightbox.querySelector('[data-id="' + current_photo + '"]'),
                 next = current.nextElementSibling,
                 prev = current.previousElementSibling;
 
-            next_elm = evt.currentTarget.classList.contains('lightbox-nav-next') ?
-                next.getAttribute('data-id') : prev.getAttribute('data-id');
+            const next_elm = evt.currentTarget.classList.contains('lightbox-nav-next')
+                            ? next.getAttribute('data-id') : prev.getAttribute('data-id');
 
             lightbox.setAttribute('data-show-id', next_elm);
-            next_id = lightbox.getAttribute('data-show-id');
-            photo = lightbox.querySelector('[data-id="' + next_id + '"]');
+            const next_id = lightbox.getAttribute('data-show-id');
+            const photo = lightbox.querySelector('[data-id="' + next_id + '"]');
             animateLightBox(photo, next_id);
         }
     }
