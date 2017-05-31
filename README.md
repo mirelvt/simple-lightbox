@@ -13,7 +13,7 @@ For the arrows + close button I use inline svg. You can replace them with your o
 
 Add velocity-1.5.0.min.js and mvt-lightbox.min.js at the bottom of the body of your html page:
 ```html
-<script src="ui-libs/velocity-1.3.1.min.js" type="text/javascript"></script>
+<script src="ui-libs/velocity-1.5.0.min.js" type="text/javascript"></script>
 <script src="js/mvt-lightbox.min.js" type="text/javascript"></script>
 ```
 
@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## Releases
 2017-05-31 v1.2.2: Update velocity.js from 1.3.1 to 1.5.0. Use ES6 let and const. Remove prefixes for transition and transform.
+
 2016-09-29 v1.2.1: Update velocity.js from 1.2.3 to 1.3.1. Clean up code. Move
 velocity.js to ui-libs directory. Update Makefile to generate minified js.
 
