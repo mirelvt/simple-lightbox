@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## Releases
 2018-06-26 v1.3: Remove velocity.js, use CSS animation for the fading effect.
+
 2017-05-31 v1.2.2: Update velocity.js from 1.3.1 to 1.5.0. Use ES6 let and const. Remove prefixes for transition and transform.
 
 2016-09-29 v1.2.1: Update velocity.js from 1.2.3 to 1.3.1. Clean up code. Move
