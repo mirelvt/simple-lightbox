@@ -9,6 +9,8 @@ For the arrows + close button I use inline svg. You can replace them with your o
 - velocity-1.5.0.min.js
 - mvt-lightbox.min.css
 
+I created a simple [demo page](http://www.mirellavanteulingen.nl/demos/lightbox/).
+
 ## Usage
 
 Add velocity-1.5.0.min.js and mvt-lightbox.min.js at the bottom of the body of your html page:
