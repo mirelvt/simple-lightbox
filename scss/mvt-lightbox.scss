@@ -1,5 +1,8 @@
 $w-border: 20px;
 $c-text: #3c4946;
+$w-icon: 40px;
+
+.no-display { display: none; }
 
 // thumbnail list
 .mvt-thumbs-list {
@@ -7,7 +10,6 @@ $c-text: #3c4946;
     margin: 0;
     padding: 0;
 
-    // thumbnail width
     li {
         display: inline-block;
         cursor: pointer;
@@ -31,8 +33,6 @@ $c-text: #3c4946;
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
-
-    &.no-display { display: none; }
 }
 
 // positioning the lightbox
@@ -40,7 +40,7 @@ $c-text: #3c4946;
     position: absolute;
     top: 50%;
     left: 50%;
-    display: none;
+    visibility: hidden;
     width: auto;
     height: auto;
     max-width: 100%;
@@ -49,6 +49,7 @@ $c-text: #3c4946;
     transform: translate(-50%, -50%);
     background-color: #fff;
 
+    // lightbox white border
     &::before {
         display: block;
         position: absolute;
@@ -62,18 +63,53 @@ $c-text: #3c4946;
     }
 
     img {
-        display: none;
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
         max-width: 100vw;
-        max-height: 100vh;
+        max-height: 99vh;
+
+        &.current-img {
+            position: static;
+            visibility: visible;
+            animation: imgFadeIn 500ms forwards;
+        }
+
+        // image animation when opening lightbox and navigating with prev/next.
+        @keyframes imgFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     }
+
+    // Lightbox animation
+    &.show,
+    &.fade-out {
+        visibility: visible;
+    }
+
+    &.show { animation: lightboxFadeIn 500ms forwards; }
+    &.fade-out { animation: lightboxFadeOut 500ms forwards; }
+
+    @keyframes lightboxFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes lightboxFadeOut {
+        0% { opacity: 1; }
+        99% { opacity: 0; }
+        100% { visibility: hidden; }
+    }
+    // @End lightbox animation
 }
 
 .mvt-btn-close {
     position: absolute;
     top: $w-border - 1;
     right: $w-border - 1;
-    width: 40px;
-    height: 40px;
+    width: $w-icon;
+    height: $w-icon;
     padding-top: 10px;
     padding-left: 12px;
     background-color: #fff;
@@ -90,8 +126,8 @@ $c-text: #3c4946;
         transform: translateY(-50%);
         position: absolute;
         top: 50%;
-        width: 40px;
-        height: 40px;
+        width: $w-icon;
+        height: $w-icon;
         padding-top: 9px;
         font-size: 5rem;
         text-align: center;
@@ -101,8 +137,8 @@ $c-text: #3c4946;
         cursor: pointer;
 
         svg {
-            width: 20px;
-            height: 20px;
+            width: $w-border;
+            height: $w-border;
             path { fill: $c-text; }
         }
     }

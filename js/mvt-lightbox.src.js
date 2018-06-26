@@ -1,10 +1,10 @@
 /*
- * MVT-Lightbox v1.2.2
+ * MVT-Lightbox v1.3
  * https://github.com/mirelvt/mvt-lightbox
  *
  * Released under the MIT license
  *
- * Date: 2017-05-31
+ * Date: 2018-06-26
  */
 
 var mvt_lightbox = (function() {
@@ -27,16 +27,18 @@ var mvt_lightbox = (function() {
         nav_next.addEventListener('click', navLightBox, false);
         nav_prev.addEventListener('click', navLightBox, false);
 
-        Array.prototype.forEach.call(thumbs, function(elm, index) {
+        for (let i = 0; i < thumbs.length; i++) {
+            const elm = thumbs[i];
             elm.addEventListener('click', showLightBox, false);
             // Set data-target attribute
-            elm.setAttribute('data-target', 'image-' + [index + 1]);
-        });
+            elm.setAttribute('data-target', 'image-' + i);
+        }
 
         // Set data-id attribute on each gallery image
-        Array.prototype.forEach.call(images, function(elm, index) {
-            elm.setAttribute('data-id', 'image-' + [index + 1]);
-        });
+        for (let i = 0; i < images.length; i++) {
+            const elm = images[i];
+            elm.setAttribute('data-id', 'image-' + i);
+        }
 
         /* ***
          * The lightbox and photo is shown based on the value of data-show-id and data-id,
@@ -46,69 +48,57 @@ var mvt_lightbox = (function() {
             overlay.classList.remove('no-display');
             // Update data-show-id attribute
             const target = evt.currentTarget.getAttribute('data-target');
-            const photo = img_list.querySelector('[data-id="' + target + '"]');
+            // const photo = img_list.querySelector('[data-id="' + target + '"]');
             lightbox.setAttribute('data-show-id', target);
-            animateLightBox(photo, target);
+            animateLightBox(target);
         }
 
         // Show the lightbox container
-        function animateLightBox(photo, target) {
-            Velocity(lightbox, 'fadeIn', 500);
+        function animateLightBox(target) {
+            lightbox.classList.remove('fade-out');
+            lightbox.classList.add('show');
             togglePhoto(target);
         }
 
         // Show the target photo in the lightbox container
         function togglePhoto(target) {
             if (current_photo) {
-                // Set position attribute for the image, this does not work as property in velocityjs.
-                img.style.position = 'absolute';
-                // animate
-                Velocity(img, 'fadeOut', 500);
-
-                // Set current_photo and show the image
+                // First remove the class name of the previous current photo
+                img.classList.remove('current-img');
+                // Set the new current_photo based on target
                 current_photo = target;
-                img = img_list.querySelector('[data-id="' + current_photo + '"]');
-                img.style.position = 'static';
-
-                Velocity(img, 'fadeIn', 500);
+                img = img_list.querySelector('[data-id="' + target + '"]');
+                img.classList.add('current-img');
             } else {
                 current_photo = target;
-                img = img_list.querySelector('[data-id="' + current_photo + '"]');
-
-                Velocity(img, 'fadeIn', 500);
+                img = img_list.querySelector('[data-id="' + target + '"]');
+                img.classList.add('current-img');
             }
 
             // Show the lightbox nav arrows
             toggleLightBoxNav(current_photo);
         }
-
         // Hide "prev" when the first photo is shown and hide "next" when the last
         // photo is shown.
         function toggleLightBoxNav(current) {
             const current_img = lightbox.querySelector('[data-id="' + current + '"]');
             if (current_img == img_list.lastElementChild) {
-                nav_next.style.display = "None";
+                nav_prev.classList.remove('no-display');
+                nav_next.classList.add('no-display');
             } else if (current_img == img_list.firstElementChild) {
-                nav_prev.style.display = "None";
+                nav_next.classList.remove('no-display');
+                nav_prev.classList.add('no-display');
             } else {
-                nav_prev.removeAttribute('style');
-                nav_next.removeAttribute('style');
+                nav_prev.classList.remove('no-display');
+                nav_next.classList.remove('no-display');
             }
         }
 
-        // Remove all inline styles from the lightbox to hide it
         function closeLightBox() {
             overlay.classList.add('no-display');
-            Velocity(lightbox, 'fadeOut', {complete: resetStyles}, 500);
-        }
-
-        // After the closing animation is done, remove the style attributes
-        function resetStyles() {
-            lightbox.removeAttribute('style');
-
-            Array.prototype.forEach.call(images, function(elm) {
-                elm.removeAttribute('style');
-            });
+            lightbox.classList.remove('show');
+            lightbox.classList.add('fade-out');
+            img.classList.remove('current-img');
         }
 
         // Handle the prev and next click event
@@ -122,8 +112,7 @@ var mvt_lightbox = (function() {
 
             lightbox.setAttribute('data-show-id', next_elm);
             const next_id = lightbox.getAttribute('data-show-id');
-            const photo = lightbox.querySelector('[data-id="' + next_id + '"]');
-            animateLightBox(photo, next_id);
+            togglePhoto(next_id);
         }
     }
 

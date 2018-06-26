@@ -1,21 +1,19 @@
-# MVT-Lightbox 1.2.2
+# MVT-Lightbox 1.3
 
-This simple lightbox uses Javascript, CSS and [Velocity.js](http://julian.com/research/velocity/). The lightbox is tested in IE11, Edge, latest Chrome, Safari and Firefox.
+This simple lightbox uses vanilla Javascript and CSS animations. The lightbox is tested in IE11, Edge, latest Chrome, Safari and Firefox.
 For the arrows + close button I use inline svg. You can replace them with your own images or icons.
 
 ## Dependencies
 
 - mvt-lightbox.min.js
-- velocity-1.5.0.min.js
 - mvt-lightbox.min.css
 
 I created a simple [demo page](http://www.mirellavanteulingen.nl/demos/lightbox/).
 
 ## Usage
 
-Add velocity-1.5.0.min.js and mvt-lightbox.min.js at the bottom of the body of your html page:
+mvt-lightbox.min.js at the bottom of the body of your html page:
 ```html
-<script src="ui-libs/velocity-1.5.0.min.js" type="text/javascript"></script>
 <script src="js/mvt-lightbox.min.js" type="text/javascript"></script>
 ```
 
@@ -83,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 
 ## Releases
+2018-06-26 v1.3: Remove velocity.js, use CSS animation for the fading effect.
 2017-05-31 v1.2.2: Update velocity.js from 1.3.1 to 1.5.0. Use ES6 let and const. Remove prefixes for transition and transform.
 
 2016-09-29 v1.2.1: Update velocity.js from 1.2.3 to 1.3.1. Clean up code. Move

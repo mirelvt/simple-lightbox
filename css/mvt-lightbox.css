@@ -1,3 +1,6 @@
+.no-display {
+  display: none; }
+
 .mvt-thumbs-list {
   list-style-type: none;
   margin: 0;
@@ -21,14 +24,12 @@
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5); }
-  .mvt-lightbox-overlay.no-display {
-    display: none; }
 
 .mvt-lightbox {
   position: absolute;
   top: 50%;
   left: 50%;
-  display: none;
+  visibility: hidden;
   width: auto;
   height: auto;
   max-width: 100%;
@@ -47,10 +48,38 @@
     border: 20px solid #fff;
     z-index: 2; }
   .mvt-lightbox img {
-    display: none;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
     max-width: 100vw;
-    max-height: 100vh; }
-
+    max-height: 99vh; }
+    .mvt-lightbox img.current-img {
+      position: static;
+      visibility: visible;
+      animation: imgFadeIn 500ms forwards; }
+@keyframes imgFadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+  .mvt-lightbox.show, .mvt-lightbox.fade-out {
+    visibility: visible; }
+  .mvt-lightbox.show {
+    animation: lightboxFadeIn 500ms forwards; }
+  .mvt-lightbox.fade-out {
+    animation: lightboxFadeOut 500ms forwards; }
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@keyframes lightboxFadeOut {
+  0% {
+    opacity: 1; }
+  99% {
+    opacity: 0; }
+  100% {
+    visibility: hidden; } }
 .mvt-btn-close {
   position: absolute;
   top: 19px;
