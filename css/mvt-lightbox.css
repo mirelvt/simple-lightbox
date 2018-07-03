@@ -7,15 +7,16 @@
   padding: 0; }
   .mvt-thumbs-list li {
     display: inline-block;
-    cursor: pointer;
     overflow: hidden; }
+    .mvt-thumbs-list li:focus {
+      outline: none; }
+    .mvt-thumbs-list li:focus img, .mvt-thumbs-list li:hover img {
+      opacity: 1; }
     .mvt-thumbs-list li img {
       transition: opacity ease-in 0.15s;
       width: 15rem;
       height: 10rem;
       opacity: 0.7; }
-    .mvt-thumbs-list li:hover img {
-      opacity: 1; }
 
 .mvt-lightbox-overlay {
   position: fixed;

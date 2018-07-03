@@ -1,7 +1,9 @@
-# MVT-Lightbox 1.3
+# MVT-Lightbox 2.0
 
 This simple lightbox uses vanilla Javascript and CSS animations. The lightbox is tested in IE11, Edge, latest Chrome, Safari and Firefox.
 For the arrows + close button I use inline svg. You can replace them with your own images or icons.
+
+The lightbox is also keyboard accessible. Use TAB key for focus on first thumbnail. Use arrow keys to navigate through the thumbnails. Hit enter to open the lightbox. Use arrow keys to navigate through the images. Hit ESC to close the lightbox.
 
 ## Dependencies
 
@@ -81,6 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 
 ## Releases
+2018-07-03: v2.0: Make lightbox keyboard accessible.
+
 2018-06-26 v1.3: Remove velocity.js, use CSS animation for the fading effect.
 
 2017-05-31 v1.2.2: Update velocity.js from 1.3.1 to 1.5.0. Use ES6 let and const. Remove prefixes for transition and transform.

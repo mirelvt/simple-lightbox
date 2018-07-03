@@ -12,8 +12,13 @@ $w-icon: 40px;
 
     li {
         display: inline-block;
-        cursor: pointer;
         overflow: hidden;
+        &:focus { outline: none; }
+
+        &:focus,
+        &:hover {
+            img { opacity: 1; }
+        }
 
         img {
             transition: opacity ease-in 0.15s;
@@ -21,8 +26,6 @@ $w-icon: 40px;
             height: 10rem;
             opacity: 0.7;
         }
-
-        &:hover img { opacity: 1; }
     }
 }
 

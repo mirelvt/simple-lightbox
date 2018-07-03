@@ -1,18 +1,21 @@
 /*
- * MVT-Lightbox v1.3
+ * MVT-Lightbox v2.0
  * https://github.com/mirelvt/mvt-lightbox
  *
  * Released under the MIT license
  *
- * Date: 2018-06-26
+ * Date: 2018-07-03
  */
 
 var mvt_lightbox = (function() {
     'use strict';
 
     function lightBox(container) {
-        let current_photo, img;
+        let current_photo, img,
+            active_thumb, target;
+
         const overlay = container.querySelector('.mvt-lightbox-overlay'),
+            thumbs_list = container.querySelector('.mvt-thumbs-list'),
             thumbs = container.querySelectorAll('li'),
             lightbox = container.querySelector('.mvt-lightbox'),
             img_list = lightbox.querySelector('.mvt-img-list'),
@@ -20,41 +23,41 @@ var mvt_lightbox = (function() {
             nav_next = lightbox.querySelector('.lightbox-nav-next'),
             nav_prev = lightbox.querySelector('.lightbox-nav-prev');
 
-        /* ***
-         * Add click events to the thumbnails, close + prev/next elements
-         *** */
-        lightbox.querySelector('.mvt-btn-close').addEventListener('click', closeLightBox, false);
-        nav_next.addEventListener('click', navLightBox, false);
-        nav_prev.addEventListener('click', navLightBox, false);
+        (function() {
+            lightbox.querySelector('.mvt-btn-close').addEventListener('click', closeLightBox);
+            document.addEventListener('keyup', keyNavigation);
+            nav_next.addEventListener('click', navLightBoxClick);
+            nav_prev.addEventListener('click', navLightBoxClick);
 
-        for (let i = 0; i < thumbs.length; i++) {
-            const elm = thumbs[i];
-            elm.addEventListener('click', showLightBox, false);
-            // Set data-target attribute
-            elm.setAttribute('data-target', 'image-' + i);
-        }
+            for (let i = 0; i < thumbs.length; i++) {
+                const elm = thumbs[i];
+                elm.setAttribute('data-target', 'image-' + i); // Set data-target attribute
+                elm.addEventListener('click', onThumbClick, false);
+            }
+            // @End click events
+            // -----------------
 
-        // Set data-id attribute on each gallery image
-        for (let i = 0; i < images.length; i++) {
-            const elm = images[i];
-            elm.setAttribute('data-id', 'image-' + i);
+            // Set data-id attribute on each gallery image
+            for (let i = 0; i < images.length; i++) {
+                const elm = images[i];
+                elm.setAttribute('data-id', 'image-' + i);
+            }
+        })();
+
+        function onThumbClick(evt) {
+            target = evt.currentTarget.getAttribute('data-target');
+            showLightBox(target);
         }
 
         /* ***
          * The lightbox and photo is shown based on the value of data-show-id and data-id,
          * if they match: show the lightbox + photo.
          *** */
-        function showLightBox(evt) {
+        function showLightBox(target) {
             overlay.classList.remove('no-display');
-            // Update data-show-id attribute
-            const target = evt.currentTarget.getAttribute('data-target');
-            // const photo = img_list.querySelector('[data-id="' + target + '"]');
-            lightbox.setAttribute('data-show-id', target);
-            animateLightBox(target);
-        }
 
-        // Show the lightbox container
-        function animateLightBox(target) {
+            // Update data-show-id attribute
+            lightbox.setAttribute('data-show-id', target);
             lightbox.classList.remove('fade-out');
             lightbox.classList.add('show');
             togglePhoto(target);
@@ -101,8 +104,68 @@ var mvt_lightbox = (function() {
             img.classList.remove('current-img');
         }
 
+        // -------------------------
+        // Start Keyboard navigation
+        function keyNavigation(evt) {
+            // 37 = ArrowLeft
+            // 39 = ArrowRight
+            // 13 = Enter
+            // 27 = ESC
+            active_thumb = container.querySelector('li[tabindex="0"]');
+
+            const the_key = evt.keyCode,
+                thumb_hasfocus = document.activeElement == active_thumb;
+
+            if (thumb_hasfocus && !lightbox.classList.contains('show')) {
+                // Navigate through thumbnails
+                thumbKeyNav(the_key);
+                // Show lightbox on Enter key
+                if (the_key == 13)
+                    showLightBox(active_thumb.getAttribute('data-target'));
+            }
+
+            // Prev/next navigation with the arrow keys
+            if (current_photo && the_key == 39 || current_photo && the_key == 37)
+                prevNextKeyNav(the_key);
+
+            if (the_key == 27)
+                closeLightBox();
+        }
+
+        function thumbKeyNav(the_key) {
+            // 37 = ArrowLeft
+            // 39 = ArrowRight
+            if (the_key == 37 || the_key == 39)
+                active_thumb.setAttribute('tabindex', '-1');
+            if (the_key == 37 && active_thumb !== thumbs_list.firstElementChild)
+                active_thumb = active_thumb.previousElementSibling;
+            if (the_key == 39 && active_thumb !== thumbs_list.lastElementChild)
+                active_thumb = active_thumb.nextElementSibling;
+
+            active_thumb.setAttribute('tabindex', '0');
+            active_thumb.focus();
+        }
+
+        function prevNextKeyNav(the_key) {
+            const current = lightbox.querySelector('[data-id="' + current_photo + '"]'),
+                next = current.nextElementSibling,
+                prev = current.previousElementSibling;
+
+            let next_elm;
+            if (the_key == 39 && next)
+                next_elm = next.getAttribute('data-id');
+            if (the_key == 37 && prev)
+                next_elm = prev.getAttribute('data-id');
+
+            if (next_elm)
+                navLightBox(next_elm);
+
+        }
+        // @End key navigation
+        // -------------------
+
         // Handle the prev and next click event
-        function navLightBox(evt) {
+        function navLightBoxClick(evt) {
             const current = lightbox.querySelector('[data-id="' + current_photo + '"]'),
                 next = current.nextElementSibling,
                 prev = current.previousElementSibling;
@@ -110,7 +173,12 @@ var mvt_lightbox = (function() {
             const next_elm = evt.currentTarget.classList.contains('lightbox-nav-next')
                             ? next.getAttribute('data-id') : prev.getAttribute('data-id');
 
-            lightbox.setAttribute('data-show-id', next_elm);
+            navLightBox(next_elm);
+        }
+
+        // set and get lightbox attribute to be able to toggle the
+        function navLightBox(next) {
+            lightbox.setAttribute('data-show-id', next);
             const next_id = lightbox.getAttribute('data-show-id');
             togglePhoto(next_id);
         }

@@ -9,25 +9,29 @@
 <body>
     <section>
         <h1>Lightbox: Vanilla JS and CSS animation</h1>
+        <p>
+            The lightbox is also keyboard accessible.
+            Use TAB key for focus on first thumbnail. Use arrow keys to navigate through the thumbnails. Hit enter to open the lightbox. Hit ESC to close the lightbox.
+        </p>
     </section>
     <section data-lightbox="mvt-lightbox">
         <ul class="mvt-thumbs-list">
-            <li>
+            <li tabindex="0">
                 <img src="img/aramon-thumb.jpg" alt="">
             </li>
-            <li>
+            <li tabindex="-1">
                 <img src="img/avond-montblanc-thumb.jpg" alt="">
             </li>
-            <li>
+            <li tabindex="-1">
                 <img src="img/Kalgoorlie-old-mines-thumb.jpg" alt="">
             </li>
-            <li>
+            <li tabindex="-1">
                 <img src="img/waterval-kloosterallerheiligen-thumb.jpg" alt="">
             </li>
-            <li>
+            <li tabindex="-1">
                 <img src="img/wortels-thumb.jpg" alt="">
             </li>
-            <li>
+            <li tabindex="-1">
                 <img src="img/domancy-uitzicht-thumb.jpg" alt="">
             </li>
         </ul>
