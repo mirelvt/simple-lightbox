@@ -1,41 +1,47 @@
-$w-border: 20px;
-$c-text: #3c4946;
-$w-icon: 40px;
+:root {
+    color-scheme: light dark;
+    --c-lightbox: #3c4946;
+    --c-border: #fff;
+
+    --w-border: 20px;
+    --w-icon: 40px;
+
+}
 
 .no-display { display: none; }
 
+// Avoid body elements to be clickable when lightbox is visible
+.lightbox-active .mvt-thumbs-list a { pointer-events: none; }
+
 // thumbnail list
 .mvt-thumbs-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 15rem);
+    gap: 1rem 1rem;
 
-    li {
-        display: inline-block;
+    a {
+        display: block;
         overflow: hidden;
+        border: 1px solid var(--c-border);
+        height: 10rem;
+        background-color: var(--bg-body);
+
         &:focus { outline: none; }
 
         &:focus,
         &:hover {
+            scale: 1.1;
             img { opacity: 1; }
         }
 
         img {
             transition: opacity ease-in 0.15s;
-            width: 15rem;
-            height: 10rem;
-            opacity: 0.7;
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            opacity: 0.6;
         }
     }
-}
-
-.mvt-lightbox-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
 }
 
 // positioning the lightbox
@@ -49,8 +55,10 @@ $w-icon: 40px;
     max-width: 100%;
     opacity: 0;
     overflow: hidden;
-    transform: translate(-50%, -50%);
+    translate: -50% -50%;
     background-color: #fff;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+
 
     // lightbox white border
     &::before {
@@ -61,7 +69,7 @@ $w-icon: 40px;
         bottom: 0;
         left: 0;
         content: "";
-        border: $w-border solid #fff;
+        border: var(--w-border) solid #fff;
         z-index: 2;
     }
 
@@ -81,7 +89,7 @@ $w-icon: 40px;
         // image animation when opening lightbox and navigating with prev/next.
         @keyframes imgFadeIn {
             from { opacity: 0; }
-            to { opacity: 1; }
+            to   { opacity: 1; }
         }
     }
 
@@ -91,17 +99,17 @@ $w-icon: 40px;
         visibility: visible;
     }
 
-    &.show { animation: lightboxFadeIn 500ms forwards; }
+    &.show     { animation: lightboxFadeIn 500ms forwards; }
     &.fade-out { animation: lightboxFadeOut 500ms forwards; }
 
     @keyframes lightboxFadeIn {
         from { opacity: 0; }
-        to { opacity: 1; }
+        to   { opacity: 1; }
     }
 
     @keyframes lightboxFadeOut {
-        0% { opacity: 1; }
-        99% { opacity: 0; }
+        0%   { opacity: 1; }
+        99%  { opacity: 0; }
         100% { visibility: hidden; }
     }
     // @End lightbox animation
@@ -109,10 +117,10 @@ $w-icon: 40px;
 
 .mvt-btn-close {
     position: absolute;
-    top: $w-border - 1;
-    right: $w-border - 1;
-    width: $w-icon;
-    height: $w-icon;
+    top: calc(var(--w-border) - 1px);
+    right: calc(var(--w-border) - 1px);
+    width: var(--w-icon);
+    height: var(--w-icon);
     padding-top: 10px;
     padding-left: 12px;
     background-color: #fff;
@@ -120,39 +128,38 @@ $w-icon: 40px;
     z-index: 10;
     cursor: pointer;
 
-    svg  path { fill: $c-text; };
+    svg  path { fill: var(--c-lightbox); };
 }
 
-.lightbox-nav- {
-    &next,
-    &prev {
-        transform: translateY(-50%);
-        position: absolute;
-        top: 50%;
-        width: $w-icon;
-        height: $w-icon;
-        padding-top: 9px;
-        font-size: 5rem;
-        text-align: center;
-        line-height: 0;
-        background-color: #fff;
-        z-index: 10;
-        cursor: pointer;
+.lightbox-nav-next,
+.lightbox-nav-prev {
+    translate: 0 -50%;
+    position: absolute;
+    top: 50%;
+    width: var(--w-icon);
+    height: var(--w-icon);
+    padding-top: 9px;
+    font-size: 5rem;
+    text-align: center;
+    line-height: 0;
+    background-color: #fff;
+    z-index: 10;
+    cursor: pointer;
 
-        svg {
-            width: $w-border;
-            height: $w-border;
-            path { fill: $c-text; }
-        }
-    }
+    svg {
+        width: var(--w-border);
+        height: var(--w-border);
 
-    &next {
-        right: $w-border - 1;
-        border-radius: 4px 0 0 4px;
+        path { fill: var(--c-prev-next); }
     }
+}
 
-    &prev {
-        left: $w-border - 1;
-        border-radius: 0 4px 4px 0;
-    }
+.lightbox-nav-next {
+    right: calc(var(--w-border) - 1px);
+    border-radius: 4px 0 0 4px;
+}
+
+.lightbox-nav-prev {
+    left: calc(var(--w-border) - 1px);
+    border-radius: 0 4px 4px 0;
 }

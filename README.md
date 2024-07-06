@@ -1,3 +1,18 @@
+# MVT-Lightbox 3.0
+
+This simple lightbox uses vanilla Javascript and CSS animations. The lightbox is
+tested in Edge, Chrome, Safari and Firefox. For the arrows + close button I use
+inline svg. You can replace them with your own images or icons.
+
+The lightbox is also keyboard accessible. Use TAB keys to navigate through the
+thumbnails. Hit enter or spacebar to open the lightbox. Use arrow keys to navigate
+through the images. Hit ESC to close the lightbox.
+
+The thumbnails are now wrapped in a-tags to be more logical accessible, instead
+of setting tabindexes on div elements.
+
+There is now a dark mode version.
+
 # MVT-Lightbox 2.0
 
 This simple lightbox uses vanilla Javascript and CSS animations. The lightbox is tested in IE11, Edge, latest Chrome, Safari and Firefox.

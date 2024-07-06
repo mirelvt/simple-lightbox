@@ -10,13 +10,13 @@ ALL_OBJS =  $(CSS_OBJS) $(CSS_MIN_OBJS) $(JS_OBJS)
 all: $(ALL_OBJS)
 
 css/%.css: scss/%.scss $(CSS_DEPS)
-	scss $< $@
+	sass $< $@
 
 %.min.css: %.css
-	scss --sourcemap=none --style compressed $< $@
+	sass --no-source-map --style=compressed $< $@
 
 %.min.js: %.src.js
-	uglifyjs --comments -c hoist_vars=true,join_vars=true -m -r '$$' -o $@ $<
+	terser --comments -o $@ $<
 
 
 clean:

@@ -1,30 +1,47 @@
+:root {
+  color-scheme: light dark;
+  --c-lightbox: #3c4946;
+  --c-border: #fff;
+  --w-border: 20px;
+  --w-icon: 40px;
+}
+
 .no-display {
-  display: none; }
+  display: none;
+}
+
+.lightbox-active .mvt-thumbs-list a {
+  pointer-events: none;
+}
 
 .mvt-thumbs-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0; }
-  .mvt-thumbs-list li {
-    display: inline-block;
-    overflow: hidden; }
-    .mvt-thumbs-list li:focus {
-      outline: none; }
-    .mvt-thumbs-list li:focus img, .mvt-thumbs-list li:hover img {
-      opacity: 1; }
-    .mvt-thumbs-list li img {
-      transition: opacity ease-in 0.15s;
-      width: 15rem;
-      height: 10rem;
-      opacity: 0.7; }
-
-.mvt-lightbox-overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5); }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 15rem);
+  gap: 1rem 1rem;
+}
+.mvt-thumbs-list a {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+  height: 10rem;
+  background-color: var(--bg-body);
+}
+.mvt-thumbs-list a:focus {
+  outline: none;
+}
+.mvt-thumbs-list a:focus, .mvt-thumbs-list a:hover {
+  scale: 1.1;
+}
+.mvt-thumbs-list a:focus img, .mvt-thumbs-list a:hover img {
+  opacity: 1;
+}
+.mvt-thumbs-list a img {
+  transition: opacity ease-in 0.15s;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  opacity: 0.6;
+}
 
 .mvt-lightbox {
   position: absolute;
@@ -36,89 +53,120 @@
   max-width: 100%;
   opacity: 0;
   overflow: hidden;
-  transform: translate(-50%, -50%);
-  background-color: #fff; }
-  .mvt-lightbox::before {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: "";
-    border: 20px solid #fff;
-    z-index: 2; }
-  .mvt-lightbox img {
-    position: absolute;
-    visibility: hidden;
-    opacity: 0;
-    max-width: 100vw;
-    max-height: 99vh; }
-    .mvt-lightbox img.current-img {
-      position: static;
-      visibility: visible;
-      animation: imgFadeIn 500ms forwards; }
+  translate: -50% -50%;
+  background-color: #fff;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+}
+.mvt-lightbox::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: "";
+  border: var(--w-border) solid #fff;
+  z-index: 2;
+}
+.mvt-lightbox img {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  max-width: 100vw;
+  max-height: 99vh;
+}
+.mvt-lightbox img.current-img {
+  position: static;
+  visibility: visible;
+  animation: imgFadeIn 500ms forwards;
+}
 @keyframes imgFadeIn {
   from {
-    opacity: 0; }
+    opacity: 0;
+  }
   to {
-    opacity: 1; } }
-  .mvt-lightbox.show, .mvt-lightbox.fade-out {
-    visibility: visible; }
-  .mvt-lightbox.show {
-    animation: lightboxFadeIn 500ms forwards; }
-  .mvt-lightbox.fade-out {
-    animation: lightboxFadeOut 500ms forwards; }
+    opacity: 1;
+  }
+}
+.mvt-lightbox.show, .mvt-lightbox.fade-out {
+  visibility: visible;
+}
+.mvt-lightbox.show {
+  animation: lightboxFadeIn 500ms forwards;
+}
+.mvt-lightbox.fade-out {
+  animation: lightboxFadeOut 500ms forwards;
+}
 @keyframes lightboxFadeIn {
   from {
-    opacity: 0; }
+    opacity: 0;
+  }
   to {
-    opacity: 1; } }
+    opacity: 1;
+  }
+}
 @keyframes lightboxFadeOut {
   0% {
-    opacity: 1; }
+    opacity: 1;
+  }
   99% {
-    opacity: 0; }
+    opacity: 0;
+  }
   100% {
-    visibility: hidden; } }
+    visibility: hidden;
+  }
+}
+
 .mvt-btn-close {
   position: absolute;
-  top: 19px;
-  right: 19px;
-  width: 40px;
-  height: 40px;
+  top: calc(var(--w-border) - 1px);
+  right: calc(var(--w-border) - 1px);
+  width: var(--w-icon);
+  height: var(--w-icon);
   padding-top: 10px;
   padding-left: 12px;
   background-color: #fff;
   border-radius: 0 0 0 4px;
   z-index: 10;
-  cursor: pointer; }
-  .mvt-btn-close svg path {
-    fill: #3c4946; }
+  cursor: pointer;
+}
+.mvt-btn-close svg path {
+  fill: var(--c-lightbox);
+}
 
-.lightbox-nav-next, .lightbox-nav-prev {
-  transform: translateY(-50%);
+.lightbox-nav-next,
+.lightbox-nav-prev {
+  translate: 0 -50%;
   position: absolute;
   top: 50%;
-  width: 40px;
-  height: 40px;
+  width: var(--w-icon);
+  height: var(--w-icon);
   padding-top: 9px;
   font-size: 5rem;
   text-align: center;
   line-height: 0;
   background-color: #fff;
   z-index: 10;
-  cursor: pointer; }
-  .lightbox-nav-next svg, .lightbox-nav-prev svg {
-    width: 20px;
-    height: 20px; }
-    .lightbox-nav-next svg path, .lightbox-nav-prev svg path {
-      fill: #3c4946; }
+  cursor: pointer;
+}
+.lightbox-nav-next svg,
+.lightbox-nav-prev svg {
+  width: var(--w-border);
+  height: var(--w-border);
+}
+.lightbox-nav-next svg path,
+.lightbox-nav-prev svg path {
+  fill: var(--c-prev-next);
+}
+
 .lightbox-nav-next {
-  right: 19px;
-  border-radius: 4px 0 0 4px; }
+  right: calc(var(--w-border) - 1px);
+  border-radius: 4px 0 0 4px;
+}
+
 .lightbox-nav-prev {
-  left: 19px;
-  border-radius: 0 4px 4px 0; }
+  left: calc(var(--w-border) - 1px);
+  border-radius: 0 4px 4px 0;
+}
 
 /*# sourceMappingURL=mvt-lightbox.css.map */

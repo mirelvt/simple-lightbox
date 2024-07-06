@@ -1,5 +1,13 @@
+:root {
+  color-scheme: light dark;
+  --bg-body: light-dark(#fff, #272221);
+  --c-text: light-dark(#3c4946, #fff);
+  --c-main: light-dark(#7cb342, #5d9464);
+}
+
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 :root {
   position: relative;
@@ -7,31 +15,31 @@
   min-height: 100%;
   font-family: "Source Sans Pro", arial, helvetica, sans-serif;
   font-size: 62.5%;
-  color: #3c4946;
+  color: var(--c-text);
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
+  -moz-osx-font-smoothing: grayscale;
+}
 
 body {
   margin: 0;
   padding: 0;
   font-size: 1.6rem;
-  height: 100%; }
+  height: 100%;
+}
 
 h1 {
   margin-top: 0;
   font-weight: normal;
-  color: #7cb342;
+  color: var(--c-main);
   line-height: 100%;
-  font-size: 3.6rem; }
+  font-size: 3.6rem;
+}
 
 section {
-  padding-left: calc(50% - 608px);
-  padding-right: calc(50% - 608px);
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  background-color: #fff; }
+  padding: 2rem calc(50% - 608px);
+}
 
 /*# sourceMappingURL=base.css.map */
